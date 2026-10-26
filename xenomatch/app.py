@@ -102,7 +102,7 @@ st.markdown("""
 
 st.markdown("""
     <div class="brand-banner">
-        <div class="brand-title">XenoMatch Systems</div>
+        <div class="brand-title">XenoMatch</div>
         <div class="brand-subtitle">Computational Simulation Platform for Ischemia-Reperfusion Injury Kinetics</div>
     </div>
 """, unsafe_allow_html=True)

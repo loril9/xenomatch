@@ -38,11 +38,9 @@ tab_kinetics, tab_barriers, tab_therapeutics = st.tabs([
     "Therapeutic Interventions"
 ])
 
-# Helper function to find images in nested repository configurations safely
 def load_local_image(primary_name, fallback_name):
     possible_paths = [
-        primary_name,
-        fallback_name,
+        primary_name, fallback_name,
         os.path.join("xenomatch", primary_name),
         os.path.join("xenomatch", fallback_name),
         os.path.join("xenomatch", "xenomatch", primary_name),
@@ -60,11 +58,11 @@ with tab_kinetics:
         st.error("Reperfusion Dynamics: Restoring cellular blood flow induces a massive influx of reactive oxygen species, leading to immediate endothelial fragmentation, microvascular thrombosis, and programmatic cell death.")
         
         st.write("")
-        iri_path = load_local_image("iri_graph.png", "iri_graph.png")
+        iri_path = load_local_image("iri_diagram.png", "iri_graph.png")
         if iri_path:
             st.image(iri_path, caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
         else:
-            st.warning("Data sync in progress. Ensure your IRI image file is uploaded to the root repository folder.")
+            st.warning("Data sync in progress. Ensure your IRI image file is uploaded to the repository folder.")
 
 with tab_barriers:
     with st.container(border=True):
@@ -77,9 +75,16 @@ with tab_barriers:
         if genetic_path:
             st.image(genetic_path, caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
         else:
-            st.warning("Data sync in progress. Ensure your genetic profile image file is uploaded to the root repository folder.")
+            st.warning("Data sync in progress. Ensure your genetic profile image file is uploaded to the repository folder.")
 
 with tab_therapeutics:
     with st.container(border=True):
         st.markdown("<h4 style='font-weight:600; margin-top:0;'>Monoclonal Antibody Applications</h4>", unsafe_allow_html=True)
         st.write("Targeted therapeutics complement genomic engineering. Complement pathway inhibitors downregulate terminal cellular assembly steps, mitigating acute mechanical cell lysis during immediate vascular unclamping operations.")
+        
+        st.write("")
+        therapeutics_path = load_local_image("therapeutic_diagram.png", "therapeutic_graph.png")
+        if therapeutics_path:
+            st.image(therapeutics_path, caption="Fig 1.3: Mechanisms of Anti-C5 monoclonal antibody mitigation against MAC pore assembly.", use_container_width=True)
+        else:
+            st.warning("Data sync in progress. Ensure your therapeutic diagram image file is uploaded to the repository folder.")
