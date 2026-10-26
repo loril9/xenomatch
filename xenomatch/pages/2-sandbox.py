@@ -1,55 +1,66 @@
 import streamlit as st
 
-st.set_page_config(page_title="XenoMatch | Telemetry Matrix", layout="wide")
+st.set_page_config(page_title="XenoMatch | Simulator", layout="wide")
 
 st.markdown("""
     <style>
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stMainView"] {
+        @import url('https://googleapis.com');
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stMainView"], .stMarkdown, p, span, div {
             background-color: #F8FAFC !important;
-            color: #0F172A !important;
             font-family: 'Inter', sans-serif !important;
+            color: #0F172A !important;
         }
-        h1, h2, h3, h4, h5, h6, p, label, span, div { color: #0F172A !important; }
+        [data-testid="stHeaderActionElements"], div[data-testid="StyledLinkIconContainer"], h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+            display: none !important;
+            pointer-events: none !important;
+        }
         div[data-testid="stVVerticalBlockBorder"] {
             background-color: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
             border-radius: 12px !important;
             padding: 32px !important;
         }
-        /* Fix label visibility over forms */
         .stSlider [data-testid="stWidgetLabel"], .stSelectbox label, .stRadio label {
             color: #0F172A !important;
-            font-weight: 500 !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+        }
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 10px 0;
         }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h2 style='color:#0EA5E9; margin-bottom:0; font-weight:700; letter-spacing:-0.5px;'>Telemetry Simulation Matrix</h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#64748B; margin-top:6px;'>Computational Multi-Variant Allocation Grid</p>", unsafe_allow_html=True)
-st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<div style='font-size:1.8rem; font-weight:700; color:#0F172A; letter-spacing:-0.75px;'>Telemetry Simulation Matrix</div>", unsafe_allow_html=True)
+st.markdown("<div style='font-size:1rem; color:#64748B; margin-bottom:24px;'>Computational Multi-Variant Allocation Grid</div>", unsafe_allow_html=True)
+st.markdown("<hr style='border: 0; height: 1px; background: #E2E8F0; margin-bottom: 24px;'>", unsafe_allow_html=True)
 
-col_inputs, col_telemetry = st.columns([1.3, 1.2])
+col_inputs, col_telemetry = st.columns([1.3, 1.2], gap="large")
 
 with col_inputs:
-    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>CLINICAL MODEL VALUES</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:16px;'>CLINICAL MODEL VALUES</h5>", unsafe_allow_html=True)
     
     with st.container(border=True):
-        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:15px; font-size:1.1rem;'>Organ Preservation Variables</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:16px; font-size:1.1rem;'>Organ Preservation Variables</div>", unsafe_allow_html=True)
         cold_ischemia_hours = st.slider("Cold Ischemia Duration (Hours)", min_value=0, max_value=12, value=4)
         preservation_type = st.selectbox("Perfusion Delivery Modality", ["Static Cold Storage", "Hypothermic Machine Perfusion"])
 
     st.write("")
     with st.container(border=True):
-        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:15px; font-size:1.1rem;'>Recipient Crossmatch Profile</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:16px; font-size:1.1rem;'>Recipient Crossmatch Profile</div>", unsafe_allow_html=True)
         antibody_titer_level = st.selectbox("Circulating Anti-Pig Titer Load", ["Low Titer Baseline", "Medium Titer Elevation", "High Titer Saturation"])
         genetic_profile = st.radio("Porcine Donor Genomic Target State", ["Standard Knockout", "Advanced Combinatorial Transgenic"])
 
     st.write("")
     with st.container(border=True):
-        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:15px; font-size:1.1rem;'>Adjunctive Protocol Management</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:#0F172A; font-weight:600; margin-bottom:16px; font-size:1.1rem;'>Adjunctive Protocol Management</div>", unsafe_allow_html=True)
         complement_inhibitor_active = st.checkbox("Deploy Targeted C5 Complement Blocking Protocol")
 
-# Operational Compute Math
+# Computational Engine
 computed_injury_index = 10
 if cold_ischemia_hours <= 4:
     computed_injury_index += (cold_ischemia_hours * 5)
@@ -70,7 +81,7 @@ if complement_inhibitor_active:
 computed_injury_index = max(0, min(100, computed_injury_index))
 
 with col_telemetry:
-    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>REAL-TIME SIMULATION CORE</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:16px;'>REAL-TIME SIMULATION CORE</h5>", unsafe_allow_html=True)
     
     with st.container(border=True):
         st.markdown("<span style='font-size:0.8rem; color:#64748B; font-weight:600; letter-spacing:0.5px;'>PROGNOSTIC VALUE INDEX</span>", unsafe_allow_html=True)
@@ -88,11 +99,11 @@ with col_telemetry:
             label_stat = "OPTIMAL STABILITY"
             desc_stat = "Favorable baseline analytics calculated. Low ischemic cellular trauma profile."
 
-        st.markdown(f"<h1 style='color:{color_stat}; font-size:4.5rem; margin:0; font-weight:700;'>{computed_injury_index}%</h1>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#F8FAFC; padding:16px; border-left:4px solid {color_stat}; border-radius:6px; font-size:0.95rem; margin-top:15px; color:#0F172A;'><b>{label_stat}</b> — {desc_stat}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='metric-value' style='color:{color_stat};'>{computed_injury_index}%</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#F8FAFC; padding:16px; border-left:4px solid {color_stat}; border-radius:6px; font-size:0.95rem; color:#0F172A;'><b>{label_stat}</b> — {desc_stat}</div>", unsafe_allow_html=True)
 
     st.write("")
-    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>ALLOCATION STRATEGY PROTOCOL</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:#64748B; font-weight:600; letter-spacing:0.5px; margin-bottom:16px;'>ALLOCATION STRATEGY PROTOCOL</h5>", unsafe_allow_html=True)
     with st.container(border=True):
         st.markdown(f"Case Review Context: Target candidate match profile evaluated at **{computed_injury_index}%** calculated injury index.")
         st.markdown("• **Candidate Alpha:** In immediate systemic decline. Estimated stability survival window under 48 hours.")
