@@ -1,20 +1,10 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="XenoMatch Platform",
+    page_title="XenoMatch",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Initialize global tracking accounts
-if 'active_doctor_account' not in st.session_state:
-    st.session_state.active_doctor_account = "Dr. Evelyn Vance"
-if 'doctor_ledgers' not in st.session_state:
-    st.session_state.doctor_ledgers = {
-        "Dr. Evelyn Vance": {"urgency": 0, "utility": 0, "logs": []},
-        "Dr. Marcus Chen": {"urgency": 0, "utility": 0, "logs": []},
-        "Dr. Sarah Jenkins": {"urgency": 0, "utility": 0, "logs": []}
-    }
 
 st.markdown("""
     <style>
@@ -65,9 +55,7 @@ st.markdown("""
         }
         
         .card-heading { font-size: 1.25rem; font-weight: 600; color: #0F172A !important; margin-bottom: 12px; }
-        .card-description { font-size: 0.95rem; color: #475569 !important; line-height: 1.6; }
         
-        /* Premium custom profile layouts */
         .profile-row {
             display: flex;
             align-items: center;
@@ -77,7 +65,6 @@ st.markdown("""
             border-radius: 10px;
             padding: 16px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
         
         .avatar-initial {
@@ -103,7 +90,7 @@ st.markdown("""
 st.markdown("""
     <div class="brand-banner">
         <div class="brand-title">XenoMatch</div>
-        <div class="brand-subtitle">Computational Simulation Platform for Ischemia-Reperfusion Injury Kinetics</div>
+        <div class="brand-subtitle">Organ Preservation & Allocation Dashboard for Pig-to-Human Transplants</div>
     </div>
 """, unsafe_allow_html=True)
 
@@ -111,42 +98,41 @@ left_panel, right_panel = st.columns(2, gap="large")
 
 with left_panel:
     with st.container(border=True):
-        st.markdown("<div class='ui-card'><div class='card-heading'>Project Abstract</div>", unsafe_allow_html=True)
+        st.markdown("<div class='ui-card'><div class='card-heading'>Project Description</div>", unsafe_allow_html=True)
         st.write(
-            "XenoMatch bridges mechanical translational medicine with predictive data parsing. "
-            "By evaluating multi-variant physiological constraints such as cold ischemia duration and recipient panel reactivity, "
-            "the system maps functional graft survival trajectories alongside ethical allocation paradigms."
+            "XenoMatch is a tool that evaluates how cell damage during organ preservation affects recipient "
+            "compatibility. By analyzing clinical values like storage time and antibody levels, "
+            "the system estimates graft success rates and walks users through ethical distribution choices."
         )
         st.markdown("</div>", unsafe_allow_html=True)
         
     st.write("")
     with st.container(border=True):
-        st.markdown("<div class='ui-card'><div class='card-heading'>🔐 Active Account Selection Console</div>", unsafe_allow_html=True)
-        # Select active account user profile
+        st.markdown("<div class='ui-card'><div class='card-heading'>User Account Login</div>", unsafe_allow_html=True)
         selected_doc = st.selectbox(
-            "Log in as presiding Institutional Review Board investigator:",
+            "Select an investigator profile to log decisions:",
             ["Dr. Evelyn Vance", "Dr. Marcus Chen", "Dr. Sarah Jenkins"]
         )
         st.session_state.active_doctor_account = selected_doc
-        st.success(f"Active Account: {st.session_state.active_doctor_account} (Decisions will log to this profile ledger)")
+        st.success(f"Logged in as: {st.session_state.active_doctor_account}")
         st.markdown("</div>", unsafe_allow_html=True)
 
 with right_panel:
-    st.markdown("<div class='ui-card'><div class='card-heading'>Institutional Review Board (IRB) Direction</div>", unsafe_allow_html=True)
+    st.markdown("<div class='ui-card'><div class='card-heading'>Medical Review Board Profiles</div>", unsafe_allow_html=True)
     
     st.markdown("""
         <div class="profile-row">
             <div class="avatar-initial" style="background: linear-gradient(135deg, #0284C7, #0EA5E9);">EV</div>
             <div>
                 <strong style="color: #0F172A; font-size: 0.95rem; display: block;">Dr. Evelyn Vance</strong>
-                <span style="color: #64748B; font-size: 0.8rem; font-weight: 500;">Director of Translational Transplantation Logistics</span>
+                <span style="color: #64748B; font-size: 0.8rem; font-weight: 500;">Director of Transplantation Logistics</span>
             </div>
         </div>
         <div class="profile-row">
             <div class="avatar-initial" style="background: linear-gradient(135deg, #10B981, #059669);">MC</div>
             <div>
                 <strong style="color: #0F172A; font-size: 0.95rem; display: block;">Dr. Marcus Chen</strong>
-                <span style="color: #64748B; font-size: 0.8rem; font-weight: 500;">Chief Interspecies Gene Editing Specialist</span>
+                <span style="color: #64748B; font-size: 0.8rem; font-weight: 500;">Lead Gene Editing Specialist</span>
             </div>
         </div>
         <div class="profile-row">
@@ -157,5 +143,4 @@ with right_panel:
             </div>
         </div>
     """, unsafe_allow_html=True)
-    
     st.markdown("</div>", unsafe_allow_html=True)
