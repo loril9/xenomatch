@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="XenoMatch | Lab", layout="wide")
 
@@ -37,6 +38,21 @@ tab_kinetics, tab_barriers, tab_therapeutics = st.tabs([
     "Therapeutic Interventions"
 ])
 
+# Helper function to find images in nested repository configurations safely
+def load_local_image(primary_name, fallback_name):
+    possible_paths = [
+        primary_name,
+        fallback_name,
+        os.path.join("xenomatch", primary_name),
+        os.path.join("xenomatch", fallback_name),
+        os.path.join("xenomatch", "xenomatch", primary_name),
+        os.path.join("xenomatch", "xenomatch", fallback_name)
+    ]
+    for path in possible_paths:
+        if os.path.exists(path):
+            return path
+    return None
+
 with tab_kinetics:
     with st.container(border=True):
         st.markdown("<h4 style='font-weight:600; margin-top:0;'>Ischemia-Reperfusion Injury Mechanism</h4>", unsafe_allow_html=True)
@@ -44,11 +60,11 @@ with tab_kinetics:
         st.error("Reperfusion Dynamics: Restoring cellular blood flow induces a massive influx of reactive oxygen species, leading to immediate endothelial fragmentation, microvascular thrombosis, and programmatic cell death.")
         
         st.write("")
-        # Renders your custom Ischemia Phase vs Reperfusion graphic asset flawlessly
-        try:
-            st.image("xenomatch/iri_graph.png", caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
-        except:
-            st.image("iri_graph.png", caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
+        iri_path = load_local_image("iri_graph.png", "iri_graph.png")
+        if iri_path:
+            st.image(iri_path, caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
+        else:
+            st.warning("Data sync in progress. Ensure your IRI image file is uploaded to the root repository folder.")
 
 with tab_barriers:
     with st.container(border=True):
@@ -57,11 +73,11 @@ with tab_barriers:
         st.markdown("<div style='margin-bottom:12px;'><b>Genomic Sugar Deletion:</b> Knocking out native pig glycosylation sites stabilizes the initial vascular barrier interface.</div><div><b>Complement Regulation:</b> Transgenic expression of human protective markers safeguards cellular matrices against patient immune tracking.</div>", unsafe_allow_html=True)
         
         st.write("")
-        # Renders your custom Nucleus mRNA genetic sequencing asset flawlessly
-        try:
-            st.image("xenomatch/genetic_diagram.png", caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
-        except:
-            st.image("genetic_diagram.png", caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
+        genetic_path = load_local_image("genetic_diagram.png", "genetic_graph.png")
+        if genetic_path:
+            st.image(genetic_path, caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
+        else:
+            st.warning("Data sync in progress. Ensure your genetic profile image file is uploaded to the root repository folder.")
 
 with tab_therapeutics:
     with st.container(border=True):
