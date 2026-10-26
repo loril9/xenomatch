@@ -1,78 +1,83 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="XenoMatch | Core Platform",
+    page_title="XenoMatch Platform",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Core Design Engine Injection
+# Deep Layout Restructuring Engine
 st.markdown("""
     <style>
         @import url('https://googleapis.com');
         
-        /* Reset typography styles across Streamlit components */
-        html, body, [data-testid="stMainView"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, div {
+        /* Global Canvas Overrides */
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stMainView"] {
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
             font-family: 'Inter', sans-serif !important;
         }
         
-        /* Structural layout adjustments */
-        .stApp {
-            background-color: #0B0F19;
-            color: #E2E8F0;
+        /* Clean Up Form Headers and Structural Titles */
+        h1, h2, h3, h4, h5, h6, p, label, span, div {
+            font-family: 'Inter', sans-serif !important;
+            color: #0F172A !important;
         }
         
-        /* Seamless clinical container layout */
+        /* Premium Clinical Elevation Cards */
         div[data-testid="stVVerticalBlockBorder"] {
-            background-color: #131C2E !important;
-            border: 1px solid #1E293B !important;
-            border-radius: 6px !important;
-            padding: 30px !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 12px !important;
+            padding: 32px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
         }
         
-        /* Modern navigation bar layout styling */
+        /* Clean Sidebar Navigation Formatting */
         section[data-testid="stSidebar"] {
-            background-color: #0B0F19 !important;
-            border-right: 1px solid #1E293B;
+            background-color: #FFFFFF !important;
+            border-right: 1px solid #E2E8F0 !important;
         }
         
-        /* Clean divider line rule overrides */
+        /* Universal structural divider line rules */
         hr {
-            border-top: 1px solid #1E293B !important;
+            border-top: 1px solid #E2E8F0 !important;
+            margin: 24px 0 !important;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# Main Application Hub Interface
-st.markdown("<h1 style='color:#00D4B2; font-weight:700; margin-bottom:0; letter-spacing:-1.5px;'>XenoMatch OS</h1>", unsafe_allow_html=True)
-st.markdown("<p style='color:#94A3B8; font-size:1.05rem; margin-top:5px; font-weight:400;'>Computational Modeling Platform for Porcine Transplantation Kinetics</p>", unsafe_allow_html=True)
+# Application Identity Header Row
+st.markdown("<h1 style='color:#0EA5E9; font-weight:700; margin-bottom:0; letter-spacing:-1px;'>XenoMatch Systems</h1>", unsafe_allow_html=True)
+st.markdown("<p style='color:#64748B; font-size:1.1rem; margin-top:6px; font-weight:400;'>Computational Simulator for Ischemia-Reperfusion Injury Kinetics in Xenotransplantation</p>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
-layout_col_left, layout_col_right = st.columns([1.6, 1.4])
+col_left, col_right = st.columns([1.6, 1.4])
 
-with layout_col_left:
+with col_left:
     with st.container(border=True):
-        st.markdown("<h3 style='color:#E2E8F0; margin-top:0; font-weight:600; font-size:1.4rem;'>Project Abstract</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color:#0F172A; margin-top:0; font-weight:600; font-size:1.4rem;'>Project Abstract</h3>", unsafe_allow_html=True)
         st.write(
-            "XenoMatch models Ischemia-Reperfusion Injury severity tiers alongside hyper-acute rejection barriers. "
-            "The platform evaluates high-stakes clinical allocation triage scenarios under strict computational and ethical constraints."
+            "XenoMatch bridges mechanical translational medicine with predictive data parsing. "
+            "By evaluating multi-variant physiological constraints such as cold ischemia duration and recipient panel reactivity, "
+            "the system maps functional graft survival trajectories alongside ethical allocation paradigms."
         )
         st.info(
-            "System Navigation: Use the left telemetry sidebar menu to toggle between individual laboratory modules."
+            "Operational Guidance: Use the sidebar navigation menu to switch between clinical data inputs, "
+            "the processing matrix, and case registries."
         )
 
-with layout_col_right:
+with col_right:
     with st.container(border=True):
-        st.markdown("<h3 style='color:#E2E8F0; margin-top:0; font-weight:600; font-size:1.4rem;'>Clinical Direction</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color:#0F172A; margin-top:0; font-weight:600; font-size:1.4rem;'>Clinical Direction</h3>", unsafe_allow_html=True)
         st.markdown(
-            "<div style='background-color:#1E293B; padding:16px; border-left:4px solid #00D4B2; border-radius:4px; margin-bottom:15px;'>"
-            "<strong style='color:#FFF; font-weight:600;'>Dr. Evelyn Vance</strong><br>"
-            "<span style='font-size:0.85rem; color:#94A3B8; font-family:JetBrains Mono;'>Xenotransplantation Director</span>"
+            "<div style='background-color:#F1F5F9; padding:20px; border-left:4px solid #0EA5E9; border-radius:6px; margin-bottom:20px;'>"
+            "<strong style='color:#0F172A; font-weight:600; font-size:1.1rem;'>Dr. Evelyn Vance</strong><br>"
+            "<span style='font-size:0.85rem; color:#64748B; font-weight:500; letter-spacing:0.5px;'>Director of Translational Transplantation Logistics</span>"
             "</div>", 
             unsafe_allow_html=True
         )
         st.write(
-            "\"Data dictates biological viability, but ethical frameworks guide asset management. "
-            "As we clear immunological barriers, algorithms must balance clinical survival profiles with systemic allocation logic.\""
+            "\"Data structures ensure biological compatibility coordinates are optimized, but resource allocation "
+            "demands robust ethical guidelines. Algorithms must balance survival probabilities with equitable access.\""
         )

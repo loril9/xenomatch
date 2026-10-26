@@ -1,76 +1,75 @@
 import streamlit as st
 
-st.set_page_config(page_title="XenoMatch | Ethics Module", layout="wide")
+st.set_page_config(page_title="XenoMatch | Case Registry", layout="wide")
 
 if 'strategic_decision_log' not in st.session_state:
     st.session_state.strategic_decision_log = []
 
 st.markdown("""
     <style>
-        html, body, [data-testid="stMainView"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, div {
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stMainView"] {
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
             font-family: 'Inter', sans-serif !important;
         }
-        .stApp { background-color: #0B0F19; color: #E2E8F0; }
+        h1, h2, h3, h4, h5, h6, p, label, span, div { color: #0F172A !important; }
         div[data-testid="stVVerticalBlockBorder"] {
-            background-color: #131C2E !important;
-            border: 1px solid #1E293B !important;
-            border-radius: 6px !important;
-            padding: 30px !important;
+            background-color: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 12px !important;
+            padding: 32px !important;
         }
-        .stMetric [data-testid="stMetricValue"] { font-family: 'JetBrains Mono', monospace !important; }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h2 style='color:#00D4B2; margin-bottom:0; font-weight:700; letter-spacing:-1px;'>Ethical Dilemma Registries</h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#94A3B8; margin-top:5px;'>Case Scenario Assessment & Matrix Tracking</p>", unsafe_allow_html=True)
+st.markdown("<h2 style='color:#0EA5E9; margin-bottom:0; font-weight:700; letter-spacing:-0.5px;'>Ethical Dilemma Registries</h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#64748B; margin-top:6px;'>Case Scenario Assessment Framework</p>", unsafe_allow_html=True)
 st.markdown("<hr>", unsafe_allow_html=True)
 
-selected_case_profile = st.selectbox("Registry Case Logs File Select", [
-    "Log Profile 4901: Medical Crossmatch Override Parameters"
-])
+st.selectbox("Active Registry File Target", ["Log Profile 4901: Medical Crossmatch Override Parameters"])
 
-case_layout_left, case_layout_right = st.columns([1, 1.2])
-with case_layout_left:
+col_case_left, col_case_right = st.columns([1, 1.2])
+with col_case_left:
     with st.container(border=True):
-        st.markdown("<h4 style='color:#EF4444; margin-top:0; font-weight:600;'>Patient Parameters: Candidate Alpha</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#DC2626; margin-top:0; font-weight:600;'>Patient Parameters: Candidate Alpha</h4>", unsafe_allow_html=True)
         st.markdown(
-            "<ul>"
-            "<li><b>Age Demographics:</b> 34</li>"
+            "<ul style='line-height:1.8; color:#0F172A;'>"
+            "<li><b>Age Demographics:</b> 34 Years</li>"
             "<li><b>Clinical State:</b> End-Stage Organ Degradation</li>"
-            "<li><b>Immunological Profile:</b> Highly sensitized reactivity</li>"
-            "<li><b>Computed Structural Injury Risk:</b> 75%</li>"
+            "<li><b>Immunological Profile:</b> Highly sensitized reactivity matrix</li>"
+            "<li><b>Computed Structural Injury Risk:</b> 75% Critical Threshold</li>"
             "</ul>", unsafe_allow_html=True
         )
-with case_layout_right:
+with col_case_right:
     with st.container(border=True):
-        st.markdown("<h4 style='color:#FFF; margin-top:0; font-weight:600;'>Allocation Paradox</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#0F172A; margin-top:0; font-weight:600;'>Allocation Paradox</h4>", unsafe_allow_html=True)
         st.write(
-            "The candidate presents with highly sensitized profiles. The tissue has been held for 11 hours under cold ischemia conditions, "
-            "making significant tissue injury mathematically verified. Allocation to this candidate attempts immediate preservation of life "
-            "but assumes an elevated risk of functional asset failure within a narrow post-operative window."
+            "The candidate presents with high sensitization. The organ profile tracker identifies an 11-hour cold ischemia duration, "
+            "meaning significant baseline cell structural trauma is confirmed. Routing allocation to Alpha attempts to safeguard "
+            "immediate survival but introduces a high statistical threat of early graft failure."
         )
         
         st.write("")
-        execution_left_btn, execution_right_btn = st.columns(2)
-        with execution_left_btn:
+        btn_alpha, btn_beta = st.columns(2)
+        with btn_alpha:
             if st.button("Route Asset to Alpha", use_container_width=True):
                 st.session_state.strategic_decision_log.append("Urgency")
-        with execution_right_btn:
+        with btn_beta:
             if st.button("Retain Asset for Optimization", use_container_width=True):
                 st.session_state.strategic_decision_log.append("Longevity")
 
 st.write("")
-st.markdown("<h3 style='color:#00D4B2; margin-bottom:15px; font-weight:600; font-size:1.3rem;'>Aggregated Institutional Choice Vectors</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='color:#0EA5E9; margin-bottom:15px; font-weight:600; font-size:1.3rem;'>Aggregated Institutional Choice Vectors</h3>", unsafe_allow_html=True)
 
 with st.container(border=True):
     if st.session_state.strategic_decision_log:
-        urgency_metric_count = st.session_state.strategic_decision_log.count("Urgency")
-        longevity_metric_count = st.session_state.strategic_decision_log.count("Longevity")
+        urg_c = st.session_state.strategic_decision_log.count("Urgency")
+        lon_c = st.session_state.strategic_decision_log.count("Longevity")
         
-        metric_col_left, metric_col_right = st.columns(2)
-        with metric_col_left:
-            st.metric("Urgency Profile Selection Metrics", f"{urgency_metric_count}", delta="Egalitarian Vector Weights")
-        with metric_col_right:
-            st.metric("Utility Profile Selection Metrics", f"{longevity_metric_count}", delta="Utilitarian Vector Weights")
+        m_left, m_right = st.columns(2)
+        with m_left:
+            st.metric("Urgency Profile Selection Metrics", f"{urg_c}", delta="Egalitarian Weights")
+        with m_right:
+            st.metric("Utility Profile Selection Metrics", f"{lon_c}", delta="Utilitarian Weights")
     else:
-        st.info("Registry empty. Evaluate the scenario above to initialize decision metrics processing loops.")
+        st.info("Registry clear. Execute allocation routing choices above to populate historical matrix coordinates.")
