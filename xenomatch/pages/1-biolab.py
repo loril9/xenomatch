@@ -1,6 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
 
 st.set_page_config(page_title="XenoMatch | Lab", layout="wide")
 
@@ -29,7 +27,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h2 style='color:#0EA5E9; font-weight:700; margin-bottom:0; letter-spacing:-0.5px;'>Immunology & Ischemia Reference Lab</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='color:#0EA5E9; font-weight:700; margin-bottom:0; letter-spacing:-0.5px;'>Immunology & Ischemia Reference Lab</h2>", unsafe_allow_title=True)
 st.markdown("<p style='color:#64748B; margin-top:4px;'>Pathophysiological Dynamics Registry</p>", unsafe_allow_html=True)
 st.markdown("<hr style='border: 0; height: 1px; background: #E2E8F0; margin-bottom: 24px;'>", unsafe_allow_html=True)
 
@@ -44,43 +42,28 @@ with tab_kinetics:
         st.markdown("<h4 style='font-weight:600; margin-top:0;'>Ischemia-Reperfusion Injury Mechanism</h4>", unsafe_allow_html=True)
         st.write("Organ harvesting initiates cold ischemia, arresting tissue oxygenation pathways and depleting cellular ATP pools. This metabolic shutdown leaves the vascular bed vulnerable to subsequent microvascular damage.")
         st.error("Reperfusion Dynamics: Restoring cellular blood flow induces a massive influx of reactive oxygen species, leading to immediate endothelial fragmentation, microvascular thrombosis, and programmatic cell death.")
+        
+        st.write("")
+        # Renders your custom Ischemia Phase vs Reperfusion graphic asset flawlessly
+        try:
+            st.image("xenomatch/iri_graph.png", caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
+        except:
+            st.image("iri_graph.png", caption="Fig 1.1: Original BioRender modeling of cold storage ATP depletion vs reactive oxygen species cascades.", use_container_width=True)
 
 with tab_barriers:
     with st.container(border=True):
         st.markdown("<h4 style='font-weight:600; margin-top:0;'>Immunological Surface Barriers</h4>", unsafe_allow_html=True)
         st.write("Human complement cascades instantly target porcine carbohydrate antigens on foreign vessel walls, triggering hyper-acute vascular destruction.")
         st.markdown("<div style='margin-bottom:12px;'><b>Genomic Sugar Deletion:</b> Knocking out native pig glycosylation sites stabilizes the initial vascular barrier interface.</div><div><b>Complement Regulation:</b> Transgenic expression of human protective markers safeguards cellular matrices against patient immune tracking.</div>", unsafe_allow_html=True)
+        
+        st.write("")
+        # Renders your custom Nucleus mRNA genetic sequencing asset flawlessly
+        try:
+            st.image("xenomatch/genetic_diagram.png", caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
+        except:
+            st.image("genetic_diagram.png", caption="Fig 1.2: Original Student BioRender research mapping transcriptional cellular monoubiquitin pathways.", use_container_width=True)
 
 with tab_therapeutics:
     with st.container(border=True):
         st.markdown("<h4 style='font-weight:600; margin-top:0;'>Monoclonal Antibody Applications</h4>", unsafe_allow_html=True)
         st.write("Targeted therapeutics complement genomic engineering. Complement pathway inhibitors downregulate terminal cellular assembly steps, mitigating acute mechanical cell lysis during immediate vascular unclamping operations.")
-
-# 🚀 FOOLPROOF MATH DIAGRAM GENERATOR (Replaces the broken image completely)
-st.write("")
-with st.container(border=True):
-    st.markdown("<h4 style='font-weight:600; margin-top:0; font-size:1.15rem; margin-bottom:16px;'>Histological Modeling Framework</h4>", unsafe_allow_html=True)
-    
-    # Generate clean mock analytical data grid to simulate endothelial scanning
-    fig, ax = plt.subplots(figsize=(10, 3.5), facecolor='#FFFFFF')
-    x = np.linspace(0, 10, 200)
-    y1 = np.sin(x) * np.exp(-x/5) * 50 + 50
-    y2 = np.cos(x) * np.exp(-x/6) * 30 + 40
-    
-    ax.plot(x, y1, color='#0EA5E9', label='Endothelial Cell Viability (%)', linewidth=2.5)
-    ax.plot(x, y2, color='#EF4444', label='Reactive Oxygen Species (ROS) Concentration', linewidth=2, linestyle='--')
-    
-    # Styling the programmatic figure to match the UI perfectly
-    ax.set_facecolor('#F8FAFC')
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_color('#CBD5E1')
-    ax.spines['bottom'].set_color('#CBD5E1')
-    ax.tick_params(colors='#64748B', labelsize=9)
-    ax.set_xlabel('Perfusion Cycle Duration (Hours)', color='#64748B', fontsize=10)
-    ax.legend(facecolor='#FFFFFF', edgecolor='#E2E8F0', loc='upper right', fontsize=9)
-    ax.grid(True, linestyle=':', alpha=0.5, color='#CBD5E1')
-    
-    # Render figure directly in layout without image files
-    st.pyplot(fig)
-    st.caption("Fig 1: Computer-generated real-time kinetic modeling curve of complement cascades in vascular endothelium during oxygenation cycles.")
