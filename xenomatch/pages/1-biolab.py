@@ -27,7 +27,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h2 style='color:#0EA5E9; font-weight:700; margin-bottom:0; letter-spacing:-0.5px;'>Immunology & Ischemia Reference Lab</h2>", unsafe_allow_title=True)
+st.markdown("<h2 style='color:#0EA5E9; font-weight:700; margin-bottom:0; letter-spacing:-0.5px;'>Immunology & Ischemia Reference Lab</h2>", unsafe_allow_html=True)
 st.markdown("<p style='color:#64748B; margin-top:4px;'>Pathophysiological Dynamics Registry</p>", unsafe_allow_html=True)
 st.markdown("<hr style='border: 0; height: 1px; background: #E2E8F0; margin-bottom: 24px;'>", unsafe_allow_html=True)
 
