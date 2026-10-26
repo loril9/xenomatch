@@ -1,9 +1,17 @@
 import streamlit as st
-import random
 
 st.set_page_config(page_title="XenoMatch | Case Generator", layout="wide")
 
-# Persistent Case Database
+# Fallback profile variables if user bypasses landing setup
+if 'active_doctor_account' not in st.session_state:
+    st.session_state.active_doctor_account = "Dr. Evelyn Vance"
+if 'doctor_ledgers' not in st.session_state:
+    st.session_state.doctor_ledgers = {
+        "Dr. Evelyn Vance": {"urgency": 0, "utility": 0, "logs": []},
+        "Dr. Marcus Chen": {"urgency": 0, "utility": 0, "logs": []},
+        "Dr. Sarah Jenkins": {"urgency": 0, "utility": 0, "logs": []}
+    }
+
 CASE_BANK = [
     {
         "id": "4901",
@@ -34,11 +42,8 @@ CASE_BANK = [
     }
 ]
 
-# State Tracker Initializations
 if 'active_case_index' not in st.session_state:
     st.session_state.active_case_index = 0
-if 'strategic_decision_log' not in st.session_state:
-    st.session_state.strategic_decision_log = []
 
 st.markdown("""
     <style>
@@ -60,11 +65,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Top Bar Profile Tracker Display
+active_user = st.session_state.active_doctor_account
+
 st.markdown("<div style='font-size:1.8rem; font-weight:700; color:#0F172A; letter-spacing:-0.75px;'>The Crucible: Ethical Triage Simulator</div>", unsafe_allow_html=True)
-st.markdown("<div style='font-size:1rem; color:#64748B; margin-bottom:24px;'>Dynamic Case-Scenario Assessment and Allocation Logs</div>", unsafe_allow_html=True)
+st.markdown(f"<div style='font-size:1rem; color:#0EA5E9; margin-bottom:24px; font-weight:600;'>Logged Account Session: {active_user}</div>", unsafe_allow_html=True)
 st.markdown("<hr style='border: 0; height: 1px; background: #E2E8F0; margin-bottom: 24px;'>", unsafe_allow_html=True)
 
-# Dynamic Case Swapper Controller Row
 ctrl_col1, ctrl_col2 = st.columns([2.2, 0.8])
 with ctrl_col2:
     if st.button("🔄 Generate Next Registry Case", use_container_width=True):
@@ -96,25 +103,31 @@ with col_case_right:
         btn_alpha, btn_beta = st.columns(2)
         with btn_alpha:
             if st.button("Route Asset to Candidate", use_container_width=True):
-                st.session_state.strategic_decision_log.append("Urgency")
-                st.toast("Decision recorded using Urgency Matrix", icon="⚖️")
+                # Update persistent state under active account
+                st.session_state.doctor_ledgers[active_user]["urgency"] += 1
+                st.session_state.doctor_ledgers[active_user]["logs"].append(f"Case #{current_case['id']} -> Allocated (Urgency)")
+                st.toast(f"Decision logged to {active_user}'s ledger", icon="⚖️")
         with btn_beta:
-            if st.button("Retain Asset for System Optimization", use_container_width=True):
-                st.session_state.strategic_decision_log.append("Longevity")
-                st.toast("Decision recorded using Utility Matrix", icon="📊")
+            if st.button("Retain Asset for Optimization", use_container_width=True):
+                # Update persistent state under active account
+                st.session_state.doctor_ledgers[active_user]["utility"] += 1
+                st.session_state.doctor_ledgers[active_user]["logs"].append(f"Case #{current_case['id']} -> Retained (Utility)")
+                st.toast(f"Decision logged to {active_user}'s ledger", icon="📊")
 
 st.write("")
-st.markdown("<h3 style='color:#0EA5E9; margin-bottom:15px; font-weight:600; font-size:1.25rem;'>Aggregated Institutional Choice Vectors</h3>", unsafe_allow_html=True)
+st.markdown(f"<h3 style='color:#0EA5E9; margin-bottom:15px; font-weight:600; font-size:1.25rem;'>Aggregated Choice Ledger for {active_user}</h3>", unsafe_allow_html=True)
 
 with st.container(border=True):
-    if st.session_state.strategic_decision_log:
-        urg_c = st.session_state.strategic_decision_log.count("Urgency")
-        lon_c = st.session_state.strategic_decision_log.count("Longevity")
+    user_data = st.session_state.doctor_ledgers[active_user]
+    
+    m_left, m_right = st.columns(2)
+    with m_left:
+        st.metric("Urgency Metrics (Egalitarian)", f"{user_data['urgency']}")
+    with m_right:
+        st.metric("Utility Metrics (Utilitarian)", f"{user_data['utility']}")
         
-        m_left, m_right = st.columns(2)
-        with m_left:
-            st.metric("Urgency Profile Selection Metrics", f"{urg_c}", delta="Egalitarian Weights")
-        with m_right:
-            st.metric("Utility Profile Selection Metrics", f"{lon_c}", delta="Utilitarian Weights")
-    else:
-        st.info("Registry clear. Execute allocation routing choices above to populate historical matrix coordinates.")
+    if user_data["logs"]:
+        st.write("---")
+        st.markdown("<b>Audit Trail History Logs:</b>", unsafe_allow_html=True)
+        for log in user_data["logs"]:
+            st.text(f"📝 {log}")
