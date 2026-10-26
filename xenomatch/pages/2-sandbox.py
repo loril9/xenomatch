@@ -1,99 +1,106 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="XenoMatch | Simulator",
-    layout="wide",
-    page_icon="⚙️"
-)
+st.set_page_config(page_title="XenoMatch | Simulator", layout="wide")
 
-st.markdown("<h2 style='color:#00D4B2; margin-bottom:0;'>⚙️ Dynamic Telemetry Simulator Grid</h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#9CA3AF; font-family:JetBrains Mono; margin-top:0;'>Real-time Ischemia & Bioethical Allocation Modeling</p>", unsafe_allow_html=True)
-st.markdown("---")
+st.markdown("""
+    <style>
+        html, body, [data-testid="stMainView"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, div {
+            font-family: 'Inter', sans-serif !important;
+        }
+        .stApp { background-color: #0B0F19; color: #E2E8F0; }
+        div[data-testid="stVVerticalBlockBorder"] {
+            background-color: #131C2E !important;
+            border: 1px solid #1E293B !important;
+            border-radius: 6px !important;
+            padding: 30px !important;
+        }
+        /* Style input widgets natively */
+        .stSlider [data-testid="stWidgetLabel"] { color: #FFF !important; font-weight: 500; }
+    </style>
+""", unsafe_allow_html=True)
 
-col1, col2 = st.columns([1.3, 1.2])
+st.markdown("<h2 style='color:#00D4B2; margin-bottom:0; font-weight:700; letter-spacing:-1px;'>Telemetry Simulation Matrix</h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#94A3B8; margin-top:5px;'>Computational Multi-Variant Allocation Grid</p>", unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
 
-with col1:
-    st.markdown("<h4 style='color:#9CA3AF; font-family:JetBrains Mono;'>PHASE 1: CLINICAL DATA INPUTS</h4>", unsafe_allow_html=True)
+input_grid_col, display_grid_col = st.columns([1.3, 1.2])
+
+with input_grid_col:
+    st.markdown("<h5 style='color:#94A3B8; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>CLINICAL MODEL VALUES</h5>", unsafe_allow_html=True)
     
     with st.container(border=True):
-        st.markdown("<b style='color:#FFF;'>1. Ischemic Stress Parameters</b>", unsafe_allow_html=True)
-        cit = st.slider("Cold Ischemia Time (CIT) in Hours", min_value=0, max_value=12, value=4, help="Duration organ is preserved without active blood circulation.")
-        modality = st.selectbox("Preservation Environment Modality", ["Static Cold Storage (SCS)", "Hypothermic Machine Perfusion (HMP)"])
+        st.markdown("<div style='color:#FFF; font-weight:600; margin-bottom:15px;'>Organ Preservation Variables</div>", unsafe_allow_html=True)
+        cold_ischemia_hours = st.slider("Cold Ischemia Duration (Hours)", min_value=0, max_value=12, value=4)
+        preservation_type = st.selectbox("Perfusion Delivery Modality", ["Static Cold Storage", "Hypothermic Machine Perfusion"])
 
     st.write("")
     with st.container(border=True):
-        st.markdown("<b style='color:#FFF;'>2. Immunological Rejection Barriers</b>", unsafe_allow_html=True)
-        antibodies = st.selectbox("Pre-Existing Recipient Anti-Pig Antibody Titers", ["Low Titer Cross-Match", "Medium Titer Cross-Match", "High Titer Cross-Match"])
-        genetics = st.radio("Porcine Donor Genomic Engineering Profile", ["Standard Triple-Knockout (TKO)", "Advanced Transgenic (TKO + hCD46/hCD55/hCD59)"])
+        st.markdown("<div style='color:#FFF; font-weight:600; margin-bottom:15px;'>Recipient Crossmatch Profile</div>", unsafe_allow_html=True)
+        antibody_titer_level = st.selectbox("Circulating Anti-Pig Titer Load", ["Low Titer Baseline", "Medium Titer Elevation", "High Titer Saturation"])
+        genetic_profile = st.radio("Porcine Donor Genomic Target State", ["Standard Knockout", "Advanced Combinatorial Transgenic"])
 
     st.write("")
     with st.container(border=True):
-        st.markdown("<b style='color:#FFF;'>3. Prophylactic Targeted Regimen</b>", unsafe_allow_html=True)
-        eculizumab = st.checkbox("Administer Eculizumab (Targeted C5 Complement Inhibitor)")
+        st.markdown("<div style='color:#FFF; font-weight:600; margin-bottom:15px;'>Adjunctive Protocol Management</div>", unsafe_allow_html=True)
+        complement_inhibitor_active = st.checkbox("Deploy Targeted C5 Complement Blocking Protocol")
 
-# Computational Engine Calculation
-iri_score = 10
-if cit <= 4:
-    iri_score += (cit * 5)
+# Algorithmic Compute Engine logic
+computed_injury_index = 10
+if cold_ischemia_hours <= 4:
+    computed_injury_index += (cold_ischemia_hours * 5)
 else:
-    iri_score += (4 * 5) + ((cit - 4) * 10)
+    computed_injury_index += (4 * 5) + ((cold_ischemia_hours - 4) * 10)
 
-if modality == "Static Cold Storage (SCS)":
-    iri_score += 15
+if preservation_type == "Static Cold Storage":
+    computed_injury_index += 15
+if antibody_titer_level == "Medium Titer Elevation":
+    computed_injury_index += 15
+elif antibody_titer_level == "High Titer Saturation":
+    computed_injury_index += 30
+if genetic_profile == "Advanced Combinatorial Transgenic":
+    computed_injury_index -= 20
+if complement_inhibitor_active:
+    computed_injury_index -= 15
 
-if antibodies == "Medium Titer Cross-Match":
-    iri_score += 15
-elif antibodies == "High Titer Cross-Match":
-    iri_score += 30
+computed_injury_index = max(0, min(100, computed_injury_index))
 
-if genetics == "Advanced Transgenic (TKO + hCD46/hCD55/hCD59)":
-    iri_score -= 20
-if eculizumab:
-    iri_score -= 15
-
-iri_score = max(0, min(100, iri_score))
-
-with col2:
-    st.markdown("<h4 style='color:#9CA3AF; font-family:JetBrains Mono;'>PHASE 2: REAL-TIME SIMULATION TELEMETRY</h4>", unsafe_allow_html=True)
+with display_grid_col:
+    st.markdown("<h5 style='color:#94A3B8; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>REAL-TIME SIMULATION CORE</h5>", unsafe_allow_html=True)
     
     with st.container(border=True):
-        st.markdown("<span style='font-size:0.9rem; color:#9CA3AF; font-family:JetBrains Mono;'>COMPUTED INDEX</span>", unsafe_allow_html=True)
+        st.markdown("<span style='font-size:0.8rem; color:#94A3B8; font-weight:600; letter-spacing:0.5px;'>PROGNOSTIC VALUE INDEX</span>", unsafe_allow_html=True)
         
-        # Color coding status telemetry engine
-        if iri_score >= 70:
-            status_color = "#EF4444"
-            status_text = "CRITICAL RISK PROFILE: High probability of acute microvascular damage and hyper-acute graft failure."
-            badge = "❌ HIGH RISK"
-        elif 40 <= iri_score < 70:
-            status_color = "#F59E0B"
-            status_text = "MODERATE RISK PROFILE: Reperfusion trauma expected. Requires hyper-vigilant post-operative management."
-            badge = "⚠️ MODERATE RISK"
+        if computed_injury_index >= 70:
+            profile_ui_color = "#EF4444"
+            profile_ui_desc = "Critical Threat Profile: High probability of structural cellular tearing and hyper-acute asset loss."
+            profile_ui_label = "CRITICAL PATHOLOGY"
+        elif 40 <= computed_injury_index < 70:
+            profile_ui_color = "#F59E0B"
+            profile_ui_desc = "Moderate Threat Profile: Significant reperfusion trauma projected. High-surveillance monitoring required."
+            profile_ui_label = "ELEVATED RISKS"
         else:
-            status_color = "#10B981"
-            status_text = "OPTIMAL RISK PROFILE: Minimal ischemic cellular damage calculated. Favorable graft prognosis."
-            badge = "✅ OPTIMAL"
+            profile_ui_color = "#10B981"
+            profile_ui_desc = "Optimal Threat Profile: Checked markers indicate low cellular injury. Favorable graft runway."
+            profile_ui_label = "OPTIMAL STABILITY"
 
-        st.markdown(f"<h1 style='color:{status_color}; font-size:4rem; margin:0; font-family:JetBrains Mono;'>{iri_score}%</h1>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#1F2937; padding:12px; border-left:4px solid {status_color}; border-radius:4px; font-size:0.9rem;'><b>{badge}</b> — {status_text}</div>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='color:{profile_ui_color}; font-size:4rem; margin:0; font-weight:700; font-family:\'JetBrains Mono\', monospace;'>{computed_injury_index}%</h1>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#1E293B; padding:14px; border-left:4px solid {profile_ui_color}; border-radius:4px; font-size:0.9rem; margin-top:12px;'><b>{profile_ui_label}</b> — {profile_ui_desc}</div>", unsafe_allow_html=True)
 
     st.write("")
-    st.markdown("<h4 style='color:#9CA3AF; font-family:JetBrains Mono;'>PHASE 3: BIOETHICAL ALLOCATION TRIAGE</h4>", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:#94A3B8; font-weight:600; letter-spacing:0.5px; margin-bottom:15px;'>ALLOCATION STRATEGY COMPONENT</h5>", unsafe_allow_html=True)
     with st.container(border=True):
-        st.markdown(f"**Case Evaluation:** The assigned transplant candidate presents a calculated **{iri_score}%** IRI risk index.")
-        st.markdown("🔴 **Patient Status:** Critical condition. Facing imminent systemic failure; survival estimated under 48 hours on alternative therapies.")
-        st.markdown("🟢 **Alternative Option:** A secondary candidate listed on the regional registry matches an optimal, low-risk immunoprofile but remains medically stable for up to 12 months.")
+        st.markdown(f"Case Review Context: Target candidate profiles with a matching computed index score of **{computed_injury_index}%**.")
+        st.markdown("Candidate Alpha: Facing end-stage systemic shutdown; expected survivability window under 48 hours without immediate intervention.")
+        st.markdown("Candidate Beta: Listed on the regional clinical baseline matching index; stable runway expected for 12 months.")
         st.write("---")
-        st.markdown("💬 *As the presiding Institutional Review Board, allocate the organ:*")
         
-        b1, b2 = st.columns(2)
-        with b1:
-            allocate = st.button("⚖️ Prioritize Urgent Justice", use_container_width=True, help="Egalitarian Framework: Allocate to the critical patient despite high calculated risk.")
-        with b2:
-            hold = st.button("📊 Prioritize Long-Term Utility", use_container_width=True, help="Utilitarian Framework: Reserve for the stable patient to maximize clinical asset life.")
+        triage_left_col, triage_right_col = st.columns(2)
+        with triage_left_col:
+            triage_action_urgent = st.button("Prioritize Clinical Urgency", use_container_width=True)
+        with triage_right_col:
+            triage_action_optimal = st.button("Prioritize System Longevity", use_container_width=True)
 
-        if allocate:
-            st.toast("Egalitarian framework logged successfully.", icon="⚖️")
-            st.info("**Moral Framework Logged: Egalitarian Model (Medical Urgency)**\n\nBy allocating to the critical patient, you prioritized immediate human survival. However, you accepted a steep statistical risk of graft loss due to severe baseline tissue trauma.")
-        if hold:
-            st.toast("Utilitarian framework logged successfully.", icon="📊")
-            st.success("**Moral Framework Logged: Utilitarian Model (Resource Optimization)**\n\nBy routing the organ to the stable candidate, you maximized resource utility and longevity metrics. However, the high-urgency candidate has been bypassed due to clinical risk thresholds.")
+        if triage_action_urgent:
+            st.info("Strategy Registered: Medical Urgency Framework (Egalitarian Model). The organ is prioritized for the critical candidate despite baseline risk values.")
+        if triage_action_optimal:
+            st.success("Strategy Registered: Expected Asset Lifespan Framework (Utilitarian Model). The organ is routed to maximize net graft functionality parameters.")

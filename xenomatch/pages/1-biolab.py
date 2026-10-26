@@ -1,49 +1,70 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="XenoMatch | Bio Lab",
-    layout="wide",
-    page_icon="🔬"
-)
+st.set_page_config(page_title="XenoMatch | Laboratory", layout="wide")
 
-st.markdown("<h2 style='color:#00D4B2; margin-bottom:0;'>🔬 Clinical Immunology & IRI Learning Lab</h2>", unsafe_allow_html=True)
-st.markdown("<p style='color:#9CA3AF; font-family:JetBrains Mono; margin-top:0;'>Mastering Underlying Pathophysiological Mechanisms</p>", unsafe_allow_html=True)
-st.markdown("---")
+st.markdown("""
+    <style>
+        html, body, [data-testid="stMainView"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, div {
+            font-family: 'Inter', sans-serif !important;
+        }
+        .stApp { background-color: #0B0F19; color: #E2E8F0; }
+        div[data-testid="stVVerticalBlockBorder"] {
+            background-color: #131C2E !important;
+            border: 1px solid #1E293B !important;
+            border-radius: 6px !important;
+            padding: 30px !important;
+        }
+        /* Style navigation tabs for premium dashboard aesthetic */
+        .stTabs [data-baseweb="tab"] {
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+        }
+        .stTabs [aria-selected="true"] {
+            color: #00D4B2 !important;
+            border-bottom-color: #00D4B2 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-tab1, tab2, tab3 = st.tabs([
-    "🩸 Ischemia-Reperfusion Injury (IRI)", 
-    "🧬 Pig-to-Human Rejection Barriers", 
-    "💊 Targeted Therapeutics"
+st.markdown("<h2 style='color:#00D4B2; margin-bottom:0; font-weight:700; letter-spacing:-1px;'>Immunology & Ischemia Learning Lab</h2>", unsafe_allow_html=True)
+st.markdown("<p style='color:#94A3B8; margin-top:5px;'>Pathophysiological Dynamics Registry</p>", unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
+
+primary_tabs = st.tabs([
+    "Ischemia-Reperfusion Kinetics", 
+    "Interspecies Rejection Profiles", 
+    "Therapeutic Interventions"
 ])
 
-with tab1:
+with primary_tabs[0]:
     with st.container(border=True):
-        st.markdown("<h4 style='color:#FFF;'>What is Ischemia-Reperfusion Injury?</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#FFF; font-weight:600;'>Ischemia-Reperfusion Injury Mechanism</h4>", unsafe_allow_html=True)
         st.write(
-            "When a porcine organ is harvested, blood flow stops (**Ischemia**), starving cells of oxygen and depleting cellular ATP. "
-            "This primes the vascular tissue for a secondary wave of destruction."
+            "Organ harvesting initiates cold ischemia, arresting tissue oxygenation pathways and depleting cellular ATP pools. "
+            "This metabolic shutdown leaves the vascular bed vulnerable to subsequent microvascular injury."
         )
         st.error(
-            "⚠️ **The Paradox:** When blood is reconnected (**Reperfusion**), the sudden rush of oxygen triggers a massive burst "
-            "of reactive oxygen species (ROS), causing severe endothelial tearing, capillary micro-vascular clotting, and rapid cellular apoptosis."
+            "Reperfusion Dynamics: Restoring cellular blood flow induces a massive influx of reactive oxygen species, "
+            "leading to immediate endothelial fragmentation, microvascular thrombosis, and programmatic cell death."
         )
 
-with tab2:
+with primary_tabs[1]:
     with st.container(border=True):
-        st.markdown("<h4 style='color:#FFF;'>Overcoming the Immunological Barrier</h4>", unsafe_allow_html=True)
-        st.write("Human blood contains pre-formed antibodies that immediately recognize alpha-gal sugars on standard pig blood vessels, triggering immediate organ destruction.")
-        
+        st.markdown("<h4 style='color:#FFF; font-weight:600;'>Immunological Surface Barriers</h4>", unsafe_allow_html=True)
+        st.write(
+            "Human complement cascades instantly target porcine carbohydrate antigens on foreign vessel walls, "
+            "triggering hyper-acute vascular destruction."
+        )
         st.markdown(
-            "<div style='margin-bottom:10px;'>🧬 <b style='color:#00D4B2;'>Triple-Knockout (TKO):</b> Genetically engineering the donor pig to remove these specific target sugars entirely prevents immediate hyper-acute hyper-destruction.</div>"
-            "<div>🛡️ <b style='color:#00D4B2;'>Human Transgenes (CD46/CD55):</b> Inserting human complement regulatory proteins directly into the porcine genome acts as a structural cloaking device against the recipient's immune attack.</div>",
+            "<div style='margin-bottom:12px;'><b>Genomic Sugar Deletion:</b> Knocking out native pig glycosylation sites stabilizes the initial vascular barrier interface.</div>"
+            "<div><b>Complement Regulation:</b> Transgenic expression of human protective markers safeguards cellular matrices against patient immune tracking.</div>",
             unsafe_allow_html=True
         )
 
-with tab3:
+with primary_tabs[2]:
     with st.container(border=True):
-        st.markdown("<h4 style='color:#FFF;'>Targeted Clinical Interventions</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color:#FFF; font-weight:600;'>Monoclonal Antibody Applications</h4>", unsafe_allow_html=True)
         st.write(
-            "Even with advanced transgenic genetics, targeted chemical intervention remains mandatory. Modern monoclonal antibodies "
-            "like **Eculizumab** neutralize the C5 complement block, acting as an active chemical shield against mechanical "
-            "cell damage during vascular unclamping."
+            "Targeted therapeutics complement genomic engineering. Complement pathway inhibitors downregulate terminal "
+            "cellular assembly steps, mitigating acute mechanical cell lysis during immediate vascular unclamping operations."
         )
